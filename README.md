@@ -12,7 +12,7 @@ Analysis of the Red Sparkler
 Firstly, make sure you have [miniforge](https://github.com/conda-forge/miniforge) installed. Once that is done, use `conda` to create the virtual environment and install the needed Python modules as follows:
 
 ```
-conda create -n sparkly python=3.8 ipython astropy photutils jupyterlab
+conda create -n sparkly python=3.8 ipython astropy photutils jupyterlab pandas
 ```
 
 To use the environment:
@@ -29,9 +29,9 @@ conda deactivate
 
 ### Git LFS
 
-The version of git being used needs to have support for git LFS as we want to access some giant FITS images and we don't want these stored in the GitHub repo, so we need to pull them in from other places.
+The version of git being used needs to have support for the Git Large File Storage (LFS) extension. We want to include some giant FITS images, and without LFS to manage the storage this isn't practical. With Git LFS, big images are no problem. I suspect that people using this repo are nerdly enough to have Git LFS already activated, but just in case you don't:
 
-One a Mac, use Homebrew: 
+On a Mac, use Homebrew: 
 
 ```
 brew install git-lfs
@@ -51,8 +51,57 @@ git lfs install
 git lfs track "*.fits"
 ```
 
-If you are just cloning the repo and have already installed LFS support, I don't think you need to run these commands (though it won't hurt).
+If you are just cloning the repo and have already installed LFS support, I don't think you need to run any of these commands (though it won't hurt).
 
 A useful Git LFS tutorial is here:
 
 https://www.atlassian.com/git/tutorials/git-lfs
+
+
+To pull over data from the CADC/CANFAR you need the `VOS` tools, so:
+
+```
+pip install vos
+```
+
+See information below about using the CANFAR VOS.
+
+### FSPS
+
+If you want to model stellar populations, you also need to install FSPS:
+
+Firstly, make sure you have gfortran installed. (Use homebrew on a mac, or apt-get on a Linux machine
+or a Windows machine using WSL).
+
+Install the command-line version:
+
+```
+mkdir -p ~/tools
+cd ~/tools
+git clone https://github.com/cconroy20/fsps
+echo 'export SPS_HOME="$HOME/tools/fsps/"' >> ~/.zshrc
+source ~/.zshrc
+cd fsps/src
+make
+```
+
+Install the Python bindings:
+
+```
+python -m pip install fsps
+```
+
+
+## Images
+
+JWST data used by the notebook are pulled over with this repo (about 4 Gb worth of images).
+
+If you want to pull over other images from CANFAR, you need to use the VOS tools. Hopefully, this repo has all you need, but just in case, it's useful to know how to access additional data from our friends at the CADC.
+
+The VOS tools require a certificate. Use the CADC webpage to get the certificate (or use `getCert`). The certificate is named: `cadcproxy.pem`. The certificate should be copied to the directory: ~/.ssl  
+
+The VOS offers commands like `vls`, `vcp`, etc. The most common use case is copying files from the CANFAR JWST storage to local storage. For example:
+
+```
+vcp "arc:projects/canucs/grizli-catalogs/SMACS0723-Mosaics/VeryRoughDraft/*_40mas.fits" .
+```
