@@ -104,7 +104,7 @@ def display_data(data, title=None, aperture=None, annulus=None, show_colorbar=Fa
     """
    
     if isinstance(data, str):
-    	data = fits.getdata(data, ext=0)
+        data = fits.getdata(data, ext=0)
  
     plt.figure()
     if title:
