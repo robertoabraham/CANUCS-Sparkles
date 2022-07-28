@@ -88,7 +88,7 @@ python -m pip install fsps
 
 ## Images
 
-Through the magic of Git LFS, the JWST data used by this repo are all pulled over (slowly) when you clone this repo (about 4 Gb worth of images).
+Through the magic of Git's LFS extension, the JWST data used by this repo are all pulled over (slowly) when you clone this repo (about 4 Gb worth of FITS files).
 
 If you want to pull over other images from CANFAR, you need to use the VOS tools. Hopefully, this repo already has all you need, but just in case, it's useful to know how to access additional data from our friends at the CADC.
 
