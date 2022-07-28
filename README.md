@@ -9,7 +9,7 @@ Analysis of the Red Sparkler
 
 ### Python setup
 
-Firstly, make sure you have [miniforge](https://github.com/conda-forge/miniforge) installed. Once that is done, use `conda` to create the virtual environment and install the needed Python modules as follows:
+I like using a separate Python environment for each project, and encourage you to do that too. If you want to roll that way, make sure you have [miniforge](https://github.com/conda-forge/miniforge) installed. Once that is done, use `conda` to create the virtual environment and install the needed Python modules as follows:
 
 ```
 conda create -n sparkly python=3.8 ipython astropy photutils jupyterlab pandas
@@ -58,12 +58,6 @@ A useful Git LFS tutorial is here:
 https://www.atlassian.com/git/tutorials/git-lfs
 
 
-To pull over data from the CADC/CANFAR you need the `VOS` tools, so:
-
-```
-pip install vos
-```
-
 See information below about using the CANFAR VOS.
 
 ### FSPS
@@ -85,7 +79,7 @@ cd fsps/src
 make
 ```
 
-Install the Python bindings:
+Install the Python bindings using pip as follows:
 
 ```
 python -m pip install fsps
@@ -94,9 +88,15 @@ python -m pip install fsps
 
 ## Images
 
-JWST data used by the notebook are pulled over with this repo (about 4 Gb worth of images).
+Through the magic of Git LFS, the JWST data used by this repo are all pulled over (slowly) when you clone this repo (about 4 Gb worth of images).
 
-If you want to pull over other images from CANFAR, you need to use the VOS tools. Hopefully, this repo has all you need, but just in case, it's useful to know how to access additional data from our friends at the CADC.
+If you want to pull over other images from CANFAR, you need to use the VOS tools. Hopefully, this repo already has all you need, but just in case, it's useful to know how to access additional data from our friends at the CADC.
+
+Firstly, install the `VOS` command line tools. These are written in Python and are pip installable, so:
+
+```
+pip install vos
+```
 
 The VOS tools require a certificate. Use the CADC webpage to get the certificate (or use `getCert`). The certificate is named: `cadcproxy.pem`. The certificate should be copied to the directory: ~/.ssl  
 
